@@ -1,42 +1,59 @@
-# 🎧 AI Voice Enhancer – U-Net Based Noise Reduction
+# 🎧 AI Voice Enhancer – Deep Learning Based Noise Reduction
 
-A deep-learning project that removes background noise from speech using a U-Net based mask prediction model.  
-The network learns to generate a magnitude mask from noisy spectrograms and reconstructs enhanced audio from it.  
-This repository is in active development — more features & improvements will be added regularly.
+## 🔍 Problem Statement
+Background noise significantly degrades speech quality in calls, recordings, and assistive technologies.
+Traditional noise reduction methods struggle with real-world, non-stationary noise.
+This project aims to enhance noisy speech signals using a deep learning–based approach.
 
----
+## 💡 Why This Matters
+- Clear speech is critical for communication, accessibility, and content creation
+- Used in call centers, hearing aids, podcasts, and voice assistants
+- Learning-based approaches outperform classical filters in complex environments
+
+## 🧠 Solution Overview
+This project implements a U-Net–based speech enhancement model that learns to predict a magnitude mask
+from noisy audio spectrograms. The predicted mask is applied to reconstruct cleaner speech signals.
+
+Key ideas:
+- Time–frequency masking
+- Encoder–decoder with skip connections
+- Data augmentation for robustness
 
 ## 🔥 Features
-- Mixes clean speech with real environmental noise (random SNR: 0–20dB)
-- U-Net architecture for mask prediction and spectrogram enhancement
-- Random pitch & speed augmentations for robust training
-- Mixed Precision (AMP) support for faster GPU training
-- Early stopping + LR scheduling for stable convergence
-- Generates `noisy.wav` & `enhanced.wav` for comparison
-- Visualizes noisy vs mask vs enhanced spectrograms
+- Synthetic mixing of clean speech with real environmental noise (SNR: 0–20 dB)
+- U-Net architecture for spectrogram mask prediction
+- Pitch and speed augmentation during training
+- Mixed precision (AMP) for faster GPU training
+- Early stopping and learning rate scheduling
+- Generates enhanced audio samples for comparison
+- Visualizes noisy vs enhanced spectrograms
 
----
+## 📊 Results
+The model demonstrates clear noise suppression while preserving speech structure.
 
-## 🧠 Model Overview
+**Artifacts generated:**
+- `noisy.wav`
+- `enhanced.wav`
+- Spectrogram visualizations
 
-Architecture Highlights:
+(Attach waveform/spectrogram images here)
 
-| Component | Purpose |
-|---|---|
-| Encoder | Feature extraction from noisy magnitude |
-| Decoder | Reconstruct clean mask with skip connections |
-| Softplus Output | Ensures smooth non-negative masks |
-| Loss Function | 0.7 * MSE + 0.3 * L1 |
+## 📁 Dataset
+- Clean speech: <source or description>
+- Noise samples: real environmental noise
+- Sampling rate: 16 kHz
+- Audio length: fixed-length segments
+- Preprocessing: STFT magnitude extraction & normalization
 
----
+## 🧪 Model Architecture
+| Component | Description |
+|--------|-------------|
+| Encoder | Extracts features from noisy magnitude spectrogram |
+| Decoder | Reconstructs clean magnitude mask with skip connections |
+| Output Activation | Softplus (non-negative masks) |
+| Loss Function | 0.7 × MSE + 0.3 × L1 |
 
-## 🔧 Tech Stack
-
-| Used For | Technology |
-|---|---|
-| Model Training | PyTorch |
-| Audio Processing | Librosa, SoundFile |
-| Visualization | Matplotlib, Seaborn |
-| Environment | Google Colab (GPU) |
-
----
+## 🚀 How to Run
+```bash
+git clone <repo-url>
+pip install -r requirements.txt
