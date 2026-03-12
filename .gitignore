@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.idea/
+*.wav
+*.pth
+data/
+notebooks/results/
+notebooks/samples/
