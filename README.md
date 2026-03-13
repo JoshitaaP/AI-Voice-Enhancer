@@ -1,59 +1,108 @@
-# 🎧 AI Voice Enhancer – Deep Learning Based Noise Reduction
+# AI Voice Enhancer
+A deep learning–based speech enhancement system that reduces background noise using a UNet neural network and spectrogram masking.
+The model predicts a speech mask over a noisy spectrogram and reconstructs cleaner audio using Inverse Short-Time Fourier Transform (ISTFT).
 
-## Problem Statement
-Background noise significantly degrades speech quality in calls, recordings, and assistive technologies.
-Traditional noise reduction methods struggle with real-world, non-stationary noise.
-This project aims to enhance noisy speech signals using a deep learning–based approach.
-
-## Why This Matters
-- Clear speech is critical for communication, accessibility, and content creation
-- Used in call centers, hearing aids, podcasts, and voice assistants
-- Learning-based approaches outperform classical filters in complex environments
-
-## Solution Overview
-This project implements a U-Net–based speech enhancement model that learns to predict a magnitude mask
-from noisy audio spectrograms. The predicted mask is applied to reconstruct cleaner speech signals.
-
-Key ideas:
-- Time–frequency masking
-- Encoder–decoder with skip connections
-- Data augmentation for robustness
-
-## Features
-- Synthetic mixing of clean speech with real environmental noise (SNR: 0–20 dB)
-- U-Net architecture for spectrogram mask prediction
-- Pitch and speed augmentation during training
-- Mixed precision (AMP) for faster GPU training
-- Early stopping and learning rate scheduling
-- Generates enhanced audio samples for comparison
-- Visualizes noisy vs enhanced spectrograms
-
-## Results
-The model demonstrates clear noise suppression while preserving speech structure.
-
-**Artifacts generated:**
-- `noisy.wav`
-- `enhanced.wav`
-- Spectrogram visualizations
-
-(Attach waveform/spectrogram images here)
-
-## Dataset
-- Clean speech: <source or description>
-- Noise samples: real environmental noise
-- Sampling rate: 16 kHz
-- Audio length: fixed-length segments
-- Preprocessing: STFT magnitude extraction & normalization
+## Project Overview
+Background noise often reduces the quality and intelligibility of recorded speech.
+This project enhances speech by applying deep learning techniques to suppress noise while preserving important speech frequencies.
+The system works by:
+1. Converting audio signals into spectrograms
+2. Feeding the spectrogram into a UNet neural network
+3. Predicting a speech enhancement mask
+4. Applying the mask to suppress noise
+6. Reconstructing enhanced audio using ISTFT
 
 ## Model Architecture
-| Component | Description |
-|--------|-------------|
-| Encoder | Extracts features from noisy magnitude spectrogram |
-| Decoder | Reconstructs clean magnitude mask with skip connections |
-| Output Activation | Softplus (non-negative masks) |
-| Loss Function | 0.7 × MSE + 0.3 × L1 |
+The model uses a UNet-style encoder-decoder architecture designed for spectrogram enhancement.
+### Encoder
+Extracts hierarchical audio features from the noisy spectrogram.
 
-## How to Run
-```bash
-git clone <repo-url>
+Input Spectrogram  
+↓  
+Conv + BatchNorm + ReLU  
+↓  
+Downsampling  
+↓  
+Feature Extraction
+
+### Decoder
+Upsamples the features and reconstructs the enhanced spectrogram using skip connections.
+
+Upsampling  
+↓  
+Skip Connections  
+↓  
+Mask Prediction
+
+The final output is a speech mask applied to the noisy spectrogram.
+
+## Enhancement Pipeline
+Noisy Audio  
+↓  
+Short-Time Fourier Transform (STFT)  
+↓  
+Spectrogram Magnitude  
+↓  
+UNet Mask Prediction  
+↓  
+Mask Application  
+↓  
+Inverse STFT  
+↓  
+Enhanced Audio
+
+## Results
+The model improves speech clarity by suppressing noise in the frequency domain.
+Example visualization:
+
+Noisy Spectrogram → Predicted Mask → Enhanced Spectrogram
+
+You can generate these visualizations using the notebook in:
+`notebooks/audio_enhancement.ipynb`
+
+## Streamlit Demo
+This project includes a Streamlit web app where users can upload noisy audio and listen to the enhanced result.
+### Run the app locally
+Install dependencies:
+
 pip install -r requirements.txt
+
+Run the Streamlit app:
+
+streamlit run app.py
+
+Then open:
+
+http://localhost:8501
+
+Upload a noisy audio file and listen to the enhanced version.
+
+## Tech Stack
+- Python
+-  PyTorch
+- Librosa
+- NumPy
+- Matplotlib
+- Streamlit
+
+## Repository Structure
+
+```
+AI-Voice-Enhancer
+│
+├── notebooks
+│   └── audio_enhancement.ipynb
+│
+├── src
+│   ├── model.py     
+│   └── enhance.py      
+│
+├── app.py              
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+## Future Improvements
+- Real-time audio enhancement
+- Better noise suppression in extremely noisy environments
