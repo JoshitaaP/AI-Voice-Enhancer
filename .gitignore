@@ -1,8 +1,25 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+
+# IDE
 .idea/
-*.wav
+.vscode/
+
+# Model weights
 *.pth
+
+# Audio files
+*.wav
+*.mp3
+*.flac
+
+# Dataset
 data/
+
+# Notebook outputs
 notebooks/results/
 notebooks/samples/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
