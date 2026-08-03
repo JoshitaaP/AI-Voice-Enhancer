@@ -1,108 +1,169 @@
 # AI Voice Enhancer
-A deep learning–based speech enhancement system that reduces background noise using a UNet neural network and spectrogram masking.
-The model predicts a speech mask over a noisy spectrogram and reconstructs cleaner audio using Inverse Short-Time Fourier Transform (ISTFT).
 
-## Project Overview
-Background noise often reduces the quality and intelligibility of recorded speech.
-This project enhances speech by applying deep learning techniques to suppress noise while preserving important speech frequencies.
-The system works by:
-1. Converting audio signals into spectrograms
-2. Feeding the spectrogram into a UNet neural network
-3. Predicting a speech enhancement mask
-4. Applying the mask to suppress noise
-6. Reconstructing enhanced audio using ISTFT
+A deep learning based speech enhancement system that removes background noise from single-channel audio recordings using a U-Net based time-frequency masking approach.
 
-## Model Architecture
-The model uses a UNet-style encoder-decoder architecture designed for spectrogram enhancement.
-### Encoder
-Extracts hierarchical audio features from the noisy spectrogram.
+The model predicts an Ideal Ratio Mask (IRM) on the magnitude spectrogram of noisy speech and reconstructs cleaner audio using inverse STFT. To further suppress residual noise, the enhanced signal undergoes Gaussian mask smoothing, spectral subtraction, high-pass filtering, and loudness normalization.
 
-Input Spectrogram  
-↓  
-Conv + BatchNorm + ReLU  
-↓  
-Downsampling  
-↓  
-Feature Extraction
+The project is trained on the VoiceBank-DEMAND dataset and includes a Streamlit web application for interactive speech enhancement.
 
-### Decoder
-Upsamples the features and reconstructs the enhanced spectrogram using skip connections.
+---
 
-Upsampling  
-↓  
-Skip Connections  
-↓  
-Mask Prediction
+## Features
 
-The final output is a speech mask applied to the noisy spectrogram.
+- Deep learning based speech enhancement
+- U-Net encoder-decoder architecture
+- Ideal Ratio Mask (IRM) prediction
+- STFT based feature extraction
+- Gaussian mask smoothing
+- Spectral subtraction
+- High-pass filtering
+- Loudness normalization
+- Streamlit web interface
+- Training and evaluation scripts
 
-## Enhancement Pipeline
-Noisy Audio  
-↓  
-Short-Time Fourier Transform (STFT)  
-↓  
-Spectrogram Magnitude  
-↓  
-UNet Mask Prediction  
-↓  
-Mask Application  
-↓  
-Inverse STFT  
-↓  
-Enhanced Audio
+---
 
-## Results
-The model improves speech clarity by suppressing noise in the frequency domain.
-Example visualization:
+ 🧠 Model Pipeline
 
-Noisy Spectrogram → Predicted Mask → Enhanced Spectrogram
+```mermaid
+flowchart TD
+    A[Noisy Audio]
+    B[STFT]
+    C[Log Magnitude Spectrogram]
+    D[U-Net Mask Prediction]
+    E[Gaussian Smoothing]
+    F[Apply Ratio Mask]
+    G[Spectral Subtraction]
+    H[Inverse STFT]
+    I[High-pass Filter]
+    J[Loudness Normalization]
+    K[Enhanced Audio]
 
-You can generate these visualizations using the notebook in:
-`notebooks/audio_enhancement.ipynb`
-
-## Streamlit Demo
-This project includes a Streamlit web app where users can upload noisy audio and listen to the enhanced result.
-### Run the app locally
-Install dependencies:
-
-pip install -r requirements.txt
-
-Run the Streamlit app:
-
-streamlit run app.py
-
-Then open:
-
-http://localhost:8501
-
-Upload a noisy audio file and listen to the enhanced version.
-
-## Tech Stack
-- Python
--  PyTorch
-- Librosa
-- NumPy
-- Matplotlib
-- Streamlit
-
-## Repository Structure
-
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J --> K
 ```
-AI-Voice-Enhancer
+---
+
+## Project Structure
+
+```text
+AI-Voice-Enhancer/
 │
-├── notebooks
+├── notebooks/
 │   └── audio_enhancement.ipynb
 │
-├── src
-│   ├── model.py     
-│   └── enhance.py      
+├── src/
+│   ├── model.py
+│   └── enhance.py
 │
-├── app.py              
+├── app.py
+├── train.py
+├── evaluate.py
 ├── requirements.txt
 ├── README.md
-└── .gitignore
 ```
 
-## Future Improvements
-- Real-time audio enhancement
-- Better noise suppression in extremely noisy environments
+---
+
+## Dataset
+
+This project uses the **VoiceBank-DEMAND** dataset.
+
+It contains paired noisy and clean speech recordings collected from:
+
+- VoiceBank Corpus
+- DEMAND Noise Database
+
+Expected directory structure:
+
+```text
+data/
+
+├── clean_trainset_28spk_wav/
+├── noisy_trainset_28spk_wav/
+├── clean_testset_wav/
+└── noisy_testset_wav/
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/JoshitaaP/AI-Voice-Enhancer.git
+
+cd AI-Voice-Enhancer
+
+pip install -r requirements.txt
+```
+
+---
+
+## Training
+
+```bash
+python train.py
+```
+
+---
+
+## Evaluation
+
+```bash
+python evaluate.py
+```
+
+This generates:
+
+- Enhanced audio
+- SNR evaluation
+- Spectrogram comparison
+
+---
+
+## Run the Web App
+
+```bash
+streamlit run app.py
+```
+
+Upload a noisy audio file and download the enhanced version.
+
+---
+
+## Results
+
+Current implementation includes:
+
+- Training and validation loss visualization
+- Spectrogram comparison
+- Signal-to-Noise Ratio (SNR) evaluation
+
+---
+
+## Future Work
+
+- Improve PESQ and STOI scores
+- Attention U-Net
+- Real-time speech enhancement
+- Transformer-based enhancement
+- ONNX deployment
+- Mobile deployment
+
+---
+
+## Author
+
+**Joshitaa Padala**
+
+B.Tech CSE (AI & ML)
+
+VIT-AP University
