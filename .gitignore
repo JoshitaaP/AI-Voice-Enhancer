@@ -1,25 +1,42 @@
+# ==========================
 # Python
+# ==========================
 __pycache__/
 *.py[cod]
+.ipynb_checkpoints/
 
+# ==========================
 # IDE
+# ==========================
 .idea/
 .vscode/
 
-# Model weights
+# ==========================
+# Dataset
+# ==========================
+data/
+
+# ==========================
+# Trained Models
+# ==========================
+models/
 *.pth
 
-# Audio files
+# ==========================
+# Audio Files
+# ==========================
 *.wav
 *.mp3
 *.flac
 
-# Dataset
-data/
+# Keep demo audio files
+!demo/
+!demo/*.wav
+!demo/*.mp3
+!demo/*.flac
 
-# Notebook outputs
+# ==========================
+# Notebook Outputs
+# ==========================
 notebooks/results/
 notebooks/samples/
-
-# Jupyter checkpoints
-.ipynb_checkpoints/

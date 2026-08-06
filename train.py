@@ -33,7 +33,7 @@ CLEAN_TRAIN_DIR = r"C:\Users\JOSHITAA\Documents\404FunNotFound\AI-Voice-Enhancer
 
 NOISY_TEST_DIR = r"C:\Users\JOSHITAA\Documents\404FunNotFound\AI-Voice-Enhancer\data\archive\noisy_testset_wav"
 CLEAN_TEST_DIR = r"C:\Users\JOSHITAA\Documents\404FunNotFound\AI-Voice-Enhancer\data\archive\clean_testset_wav"
-CHECKPOINT_PATH = r"best_mask_unet.pth"
+CHECKPOINT_PATH = r"models/best_mask_unet.pth"
 
 # These MUST stay identical to the values used in src/enhance.py at inference.
 SR = 16000

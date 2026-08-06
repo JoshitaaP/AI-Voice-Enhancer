@@ -23,7 +23,7 @@ The project is trained on the VoiceBank-DEMAND dataset and includes a Streamlit 
 
 ---
 
- 🧠 Model Pipeline
+## Model Pipeline
 
 ```mermaid
 flowchart TD

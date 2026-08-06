@@ -107,7 +107,7 @@ def evaluate(clean_path, noisy_path):
     noisy, _ = librosa.load(noisy_path, sr=SR)
 
     # Load RAW enhanced signal for evaluation
-    enhanced, _ = librosa.load("enhanced_raw.wav", sr=SR)
+    enhanced, _ = librosa.load("demo/enhanced_raw.wav", sr=SR)
 
     snr_before = compute_snr(clean, noisy)
     snr_after = compute_snr(clean, enhanced)

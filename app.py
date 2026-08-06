@@ -52,6 +52,6 @@ if uploaded_file is not None:
             st.download_button(
                 label="⬇ Download Enhanced Audio",
                 data=audio_file,
-                file_name="enhanced_audio.wav",
+                file_name="demo/enhanced_audio.wav",
                 mime="audio/wav"
             )
